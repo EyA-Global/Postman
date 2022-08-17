@@ -1,0 +1,634 @@
+{
+	"info": {
+		"_postman_id": "e2d0fb1e-b49a-46d0-ac49-3a5e8728c043",
+		"name": "Platform",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "137851"
+	},
+	"item": [
+		{
+			"name": "Acquire Token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"pm.environment.set(\"token\", jsonData.access_token);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "client_id",
+							"value": "ea-client",
+							"type": "text"
+						},
+						{
+							"key": "client_secret",
+							"value": "{{platform-secret}}",
+							"type": "text"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "text"
+						},
+						{
+							"key": "grant_type",
+							"value": "password",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{keycloak}}/auth/realms/ea-realm/protocol/openid-connect/token",
+					"host": [
+						"{{keycloak}}"
+					],
+					"path": [
+						"auth",
+						"realms",
+						"ea-realm",
+						"protocol",
+						"openid-connect",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Tags [create]",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"demoTag12Aug2022\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{platform-api}}/tags",
+					"host": [
+						"{{platform-api}}"
+					],
+					"path": [
+						"tags"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Tags [list]",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{platform-api}}/tags",
+					"host": [
+						"{{platform-api}}"
+					],
+					"path": [
+						"tags"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Tags [get]",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{platform-api}}/tags/5dcf0fed-c33d-42ad-bde6-9f1ebb8d7b9d",
+					"host": [
+						"{{platform-api}}"
+					],
+					"path": [
+						"tags",
+						"5dcf0fed-c33d-42ad-bde6-9f1ebb8d7b9d"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Tags [delete]",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"testTag0\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{platform-api}}/tags/ee80b430-7627-4321-93c0-9d7b871b5549",
+					"host": [
+						"{{platform-api}}"
+					],
+					"path": [
+						"tags",
+						"ee80b430-7627-4321-93c0-9d7b871b5549"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Asset Templates [create]",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"testTemplate12Aug2022\",\n  \"generalDescription\": \"Test Template desctiption\",\n  \"authority\": \"ROOT\",\n  \"tagReferences\": [\n    {\n      \"tagId\": \"5dcf0fed-c33d-42ad-bde6-9f1ebb8d7b9d\"\n    }\n  ],\n  \"tabs\": [\n    {\n      \"type\": \"REGULATORY_INFORMATION\",\n      \"categories\": [\n        {\n          \"name\": \"category0\",\n          \"attributes\": [\n            {\n              \"name\": \"category0_attribute0\",\n              \"order\": 0,\n              \"description\": \"Test text attribute\",\n              \"type\": \"TEXT\",\n              \"options\": {\n                \"mandatory\": false,\n                \"public\": true,\n                \"mutable\": true,\n                \"static\": false,\n                \"deprecated\": false,\n                \"inherited\": false\n              },\n              \"defaultValue\": \"testDefaultValue\"\n            }\n          ]\n        }\n      ]\n    }\n  ]\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{platform-api}}/asset-templates",
+					"host": [
+						"{{platform-api}}"
+					],
+					"path": [
+						"asset-templates"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Asset Templates [create for extension]",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"testTemplateToExtend12Aug2022\",\n  \"generalDescription\": \"Test Template desctiption\",\n  \"authority\": \"ROOT\",\n  \"tagReferences\": [\n    {\n      \"tagId\": \"5dcf0fed-c33d-42ad-bde6-9f1ebb8d7b9d\"\n    }\n  ],\n  \"tabs\": [\n    {\n      \"type\": \"REGULATORY_INFORMATION\",\n      \"categories\": [\n        {\n          \"name\": \"category0\",\n          \"attributes\": [\n            {\n              \"name\": \"category0_attribute0\",\n              \"order\": 0,\n              \"description\": \"Test text attribute\",\n              \"type\": \"TEXT\",\n              \"options\": {\n                \"mandatory\": false,\n                \"public\": true,\n                \"mutable\": true,\n                \"static\": false,\n                \"deprecated\": false,\n                \"inherited\": false\n              },\n              \"defaultValue\": \"testDefaultValue\"\n            }\n          ]\n        }\n      ]\n    }\n  ]\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{platform-api}}/asset-templates",
+					"host": [
+						"{{platform-api}}"
+					],
+					"path": [
+						"asset-templates"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Asset Templates [create for merge]",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"testTemplateToMerge12Aug2022\",\n  \"generalDescription\": \"Test Template desctiption\",\n  \"authority\": \"ROOT\",\n  \"tagReferences\": [\n    {\n      \"tagId\": \"5dcf0fed-c33d-42ad-bde6-9f1ebb8d7b9d\"\n    }\n  ],\n  \"tabs\": [\n    {\n      \"type\": \"REGULATORY_INFORMATION\",\n      \"categories\": [\n        {\n          \"name\": \"category0\",\n          \"attributes\": [\n            {\n              \"name\": \"category0_attribute0\",\n              \"order\": 0,\n              \"description\": \"Test text attribute\",\n              \"type\": \"TEXT\",\n              \"options\": {\n                \"mandatory\": false,\n                \"public\": true,\n                \"mutable\": true,\n                \"static\": false,\n                \"deprecated\": false,\n                \"inherited\": false\n              },\n              \"defaultValue\": \"testDefaultValue\"\n            }\n          ]\n        }\n      ]\n    }\n  ]\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{platform-api}}/asset-templates",
+					"host": [
+						"{{platform-api}}"
+					],
+					"path": [
+						"asset-templates"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Asset Templates [update]",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": \"0de67c1d-25b1-416e-955a-24cd507a9502\",\n    \"name\": \"testTemplate12Aug2022\",\n    \"generalDescription\": \"Test Template desctiption\",\n    \"authority\": \"ROOT\",\n    \"published\": false,\n    \"version\": 0,\n    \"tagReferences\": [\n        {\n            \"tagId\": \"5dcf0fed-c33d-42ad-bde6-9f1ebb8d7b9d\",\n            \"tagName\": \"demoTag12Aug2022\",\n            \"assignmentDate\": \"2022-08-12T10:02:03.442Z\",\n            \"parentTagChain\": [],\n            \"uploader\": null\n        }\n    ],\n    \"tabs\": [\n        {\n            \"type\": \"REGULATORY_INFORMATION\",\n            \"categories\": [\n                {\n                    \"uid\": \"dca04645-841d-433a-9ead-51f7d174e349\",\n                    \"name\": \"category0\",\n                    \"order\": 0,\n                    \"attributes\": [\n                        {\n                            \"type\": \"TEXT\",\n                            \"uid\": \"74f8d26a-e157-4e8a-9da2-7f1a045f2744\",\n                            \"name\": \"category0_attribute0\",\n                            \"order\": 0,\n                            \"type\": \"TEXT\",\n                            \"options\": {\n                                \"mandatory\": false,\n                                \"public\": true,\n                                \"mutable\": true,\n                                \"static\": false,\n                                \"deprecated\": false,\n                                \"inherited\": false\n                            },\n                            \"defaultValue\": \"testDefaultValueUpdated\",\n                            \"description\": \"Test text attribute\"\n                        }\n                    ]\n                }\n            ]\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{platform-api}}/asset-templates/0de67c1d-25b1-416e-955a-24cd507a9502",
+					"host": [
+						"{{platform-api}}"
+					],
+					"path": [
+						"asset-templates",
+						"0de67c1d-25b1-416e-955a-24cd507a9502"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Asset Templates [get]",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{platform-api}}/asset-templates/5d9390f5-c36c-4d2f-95e2-8e54799ad0e9",
+					"host": [
+						"{{platform-api}}"
+					],
+					"path": [
+						"asset-templates",
+						"5d9390f5-c36c-4d2f-95e2-8e54799ad0e9"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Asset Templates [list]",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{platform-api}}/asset-templates?page=0&size=25",
+					"host": [
+						"{{platform-api}}"
+					],
+					"path": [
+						"asset-templates"
+					],
+					"query": [
+						{
+							"key": "published",
+							"value": "false",
+							"disabled": true
+						},
+						{
+							"key": "tagId",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "tagIsNull",
+							"value": "false",
+							"disabled": true
+						},
+						{
+							"key": "tagName",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "page",
+							"value": "0"
+						},
+						{
+							"key": "size",
+							"value": "25"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Asset Templates [publish]",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{platform-api}}/asset-templates/ae18c8ba-8322-439b-832e-6e5737c94b3b/publish",
+					"host": [
+						"{{platform-api}}"
+					],
+					"path": [
+						"asset-templates",
+						"ae18c8ba-8322-439b-832e-6e5737c94b3b",
+						"publish"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Asset Templates [extend check]",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"assetTemplateIds\": [\n        \"b4ddd6b3-5426-4e4c-a8bb-8eda302605af\"\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{platform-api}}/asset-templates/0de67c1d-25b1-416e-955a-24cd507a9502/extensions/check",
+					"host": [
+						"{{platform-api}}"
+					],
+					"path": [
+						"asset-templates",
+						"0de67c1d-25b1-416e-955a-24cd507a9502",
+						"extensions",
+						"check"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Asset Templates [extend]",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"assetTemplateIds\": [\n    \"b4ddd6b3-5426-4e4c-a8bb-8eda302605af\"\n  ],\n  \"resolvedConflicts\": \n  {\n    \"tabs\": [\n        {\n            \"type\": \"REGULATORY_INFORMATION\",\n            \"categories\": [\n                {\n                    \"name\": \"category0\",\n                    \"attributeTemplates\": [\n                        {\n                            \"name\": \"category0_attribute0\",\n                            \"conflicts\": [\n                                {\n                                    \"assetTemplateId\": \"b4ddd6b3-5426-4e4c-a8bb-8eda302605af\",\n                                    \"assetTemplateName\": \"testTemplateToExtend12Aug2022\",\n                                    \"value\": {\n                                        \"type\": \"TEXT\",\n                                        \"uid\": \"eba16278-01bf-4324-895d-2e576ef8bbf3\",\n                                        \"name\": \"category0_attribute0\",\n                                        \"order\": 0,\n                                        \"type\": \"TEXT\",\n                                        \"options\": {\n                                            \"mandatory\": false,\n                                            \"public\": true,\n                                            \"mutable\": true,\n                                            \"static\": false,\n                                            \"deprecated\": false,\n                                            \"inherited\": false\n                                        },\n                                        \"defaultValue\": \"testDefaultValue\",\n                                        \"description\": \"Test text attribute\"\n                                    },\n                                    \"selected\": false,\n                                    \"target\": false\n                                },\n                                {\n                                    \"assetTemplateId\": \"0de67c1d-25b1-416e-955a-24cd507a9502\",\n                                    \"assetTemplateName\": \"testTemplate12Aug2022\",\n                                    \"value\": {\n                                        \"type\": \"TEXT\",\n                                        \"uid\": \"74f8d26a-e157-4e8a-9da2-7f1a045f2744\",\n                                        \"name\": \"category0_attribute0\",\n                                        \"order\": 0,\n                                        \"type\": \"TEXT\",\n                                        \"options\": {\n                                            \"mandatory\": false,\n                                            \"public\": true,\n                                            \"mutable\": true,\n                                            \"static\": false,\n                                            \"deprecated\": false,\n                                            \"inherited\": false\n                                        },\n                                        \"defaultValue\": \"testDefaultValueUpdated\",\n                                        \"description\": \"Test text attribute\"\n                                    },\n                                    \"selected\": true,\n                                    \"target\": true\n                                }\n                            ]\n                        }\n                    ]\n                }\n            ]\n        }\n    ]\n}\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{platform-api}}/asset-templates/0de67c1d-25b1-416e-955a-24cd507a9502/extensions",
+					"host": [
+						"{{platform-api}}"
+					],
+					"path": [
+						"asset-templates",
+						"0de67c1d-25b1-416e-955a-24cd507a9502",
+						"extensions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Asset Templates [list extensions]",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"assetTemplateIds\": [\n    \"8ffd7367-c011-4917-a8d2-5a8a50027352\"\n  ],\n  \"resolvedConflicts\": {\n    \"tabs\": [\n      {\n        \"type\": \"REGULATORY_INFORMATION\",\n        \"categories\": [\n          {\n            \"name\": \"category0\",\n            \"attributeTemplates\": [\n              {\n                \"name\": \"category0_attribute0\",\n                \"conflicts\": [\n                  {\n                    \"assetTemplateId\": \"8ffd7367-c011-4917-a8d2-5a8a50027352\",\n                    \"assetTemplateName\": \"testTemplateToExtend6Aug2022\",\n                    \"value\": {\n                      \"type\": \"TEXT\",\n                      \"uid\": \"0330715b-886d-41c2-9d63-d3333d9976df\",\n                      \"name\": \"category0_attribute0\",\n                      \"order\": 0,\n                      \"type\": \"TEXT\",\n                      \"options\": {\n                        \"mandatory\": false,\n                        \"public\": true,\n                        \"mutable\": true,\n                        \"static\": false,\n                        \"deprecated\": false,\n                        \"inherited\": false\n                      },\n                      \"defaultValue\": \"testDefaultValue\",\n                      \"description\": \"Test text attribute\"\n                    },\n                    \"selected\": false,\n                    \"target\": false\n                  },\n                  {\n                    \"assetTemplateId\": \"390b2a46-10e3-4e74-af19-b8fadb2c8ac7\",\n                    \"assetTemplateName\": \"testTemplate6Aug2022\",\n                    \"value\": {\n                      \"type\": \"TEXT\",\n                      \"uid\": \"9cee7925-cb1e-45b1-bad2-03a338748822\",\n                      \"name\": \"category0_attribute0\",\n                      \"order\": 0,\n                      \"type\": \"TEXT\",\n                      \"options\": {\n                        \"mandatory\": false,\n                        \"public\": true,\n                        \"mutable\": true,\n                        \"static\": false,\n                        \"deprecated\": false,\n                        \"inherited\": false\n                      },\n                      \"defaultValue\": \"testDefaultValueUpdated\",\n                      \"description\": \"Test text attribute\"\n                    },\n                    \"selected\": true,\n                    \"target\": true\n                  }\n                ]\n              }\n            ]\n          }\n        ]\n      }\n    ]\n  }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{platform-api}}/asset-templates/0de67c1d-25b1-416e-955a-24cd507a9502/extensions",
+					"host": [
+						"{{platform-api}}"
+					],
+					"path": [
+						"asset-templates",
+						"0de67c1d-25b1-416e-955a-24cd507a9502",
+						"extensions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Asset Templates [merge check]",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"assetTemplateIds\": [\n    \"0de67c1d-25b1-416e-955a-24cd507a9502\",  \n    \"ae18c8ba-8322-439b-832e-6e5737c94b3b\"\n  ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{platform-api}}/asset-templates/merge/check",
+					"host": [
+						"{{platform-api}}"
+					],
+					"path": [
+						"asset-templates",
+						"merge",
+						"check"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Asset Templates [merge]",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"assetTemplateIds\": [\n    \"0de67c1d-25b1-416e-955a-24cd507a9502\",\n    \"ae18c8ba-8322-439b-832e-6e5737c94b3b\"\n  ],\n  \"newAssetTemplate\": {\n    \"name\": \"testMergedAssetTemplate12Aug2022\",\n    \"generalDescription\": \"Test merged asset template\",\n    \"authority\": \"ROOT\"\n  },\n  \"conflicts\":\n  {\n    \"tabs\": [\n        {\n            \"type\": \"REGULATORY_INFORMATION\",\n            \"categories\": [\n                {\n                    \"name\": \"category0\",\n                    \"attributeTemplates\": [\n                        {\n                            \"name\": \"category0_attribute0\",\n                            \"conflicts\": [\n                                {\n                                    \"assetTemplateId\": \"0de67c1d-25b1-416e-955a-24cd507a9502\",\n                                    \"assetTemplateName\": \"testTemplate12Aug2022\",\n                                    \"value\": {\n                                        \"type\": \"TEXT\",\n                                        \"uid\": \"74f8d26a-e157-4e8a-9da2-7f1a045f2744\",\n                                        \"name\": \"category0_attribute0\",\n                                        \"order\": 0,\n                                        \"type\": \"TEXT\",\n                                        \"options\": {\n                                            \"mandatory\": false,\n                                            \"public\": true,\n                                            \"mutable\": true,\n                                            \"static\": false,\n                                            \"deprecated\": false,\n                                            \"inherited\": true\n                                        },\n                                        \"defaultValue\": \"testDefaultValueUpdated\",\n                                        \"description\": \"Test text attribute\"\n                                    },\n                                    \"selected\": false,\n                                    \"target\": false\n                                },\n                                {\n                                    \"assetTemplateId\": \"ae18c8ba-8322-439b-832e-6e5737c94b3b\",\n                                    \"assetTemplateName\": \"testTemplateToMerge12Aug2022\",\n                                    \"value\": {\n                                        \"type\": \"TEXT\",\n                                        \"uid\": \"9afd02a0-6bbf-4d28-b7a7-e2a23fb747bb\",\n                                        \"name\": \"category0_attribute0\",\n                                        \"order\": 0,\n                                        \"type\": \"TEXT\",\n                                        \"options\": {\n                                            \"mandatory\": false,\n                                            \"public\": true,\n                                            \"mutable\": true,\n                                            \"static\": false,\n                                            \"deprecated\": false,\n                                            \"inherited\": false\n                                        },\n                                        \"defaultValue\": \"testDefaultValue\",\n                                        \"description\": \"Test text attribute\"\n                                    },\n                                    \"selected\": true,\n                                    \"target\": false\n                                }\n                            ]\n                        }\n                    ]\n                }\n            ]\n        }\n    ]\n}\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{platform-api}}/asset-templates/merge",
+					"host": [
+						"{{platform-api}}"
+					],
+					"path": [
+						"asset-templates",
+						"merge"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Asset Templates [clone]",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"testTemplateCloned12Aug2022\",\n  \"generalDescription\": \"Cloned test asset template\",\n  \"authority\": \"ROOT\",\n  \"tagReferences\": [\n    {\n      \"tagId\": \"de5212b1-0df7-4ea6-b9df-dba2c48256c6\"\n    }\n  ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{platform-api}}/asset-templates/0de67c1d-25b1-416e-955a-24cd507a9502/clone",
+					"host": [
+						"{{platform-api}}"
+					],
+					"path": [
+						"asset-templates",
+						"0de67c1d-25b1-416e-955a-24cd507a9502",
+						"clone"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Participants [list]",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{platform-api}}/participants",
+					"host": [
+						"{{platform-api}}"
+					],
+					"path": [
+						"participants"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Asset Templates [share]",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"participants\": [\n    {\n        \"organization\": \"Organization\",\n        \"locality\": \"Munich\",\n        \"country\": \"DE\",\n        \"organizationUnit\": null,\n        \"commonName\": null,\n        \"state\": null\n    }\n  ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{platform-api}}/asset-templates/0de67c1d-25b1-416e-955a-24cd507a9502/share",
+					"host": [
+						"{{platform-api}}"
+					],
+					"path": [
+						"asset-templates",
+						"0de67c1d-25b1-416e-955a-24cd507a9502",
+						"share"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Asset Templates [unpublish]",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{platform-api}}/asset-templates/176b3f9b-2c01-4ac0-8e84-05b9081b8fdf/unpublish",
+					"host": [
+						"{{platform-api}}"
+					],
+					"path": [
+						"asset-templates",
+						"176b3f9b-2c01-4ac0-8e84-05b9081b8fdf",
+						"unpublish"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Asset Templates [list tags]",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{platform-api}}/asset-templates/tags",
+					"host": [
+						"{{platform-api}}"
+					],
+					"path": [
+						"asset-templates",
+						"tags"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

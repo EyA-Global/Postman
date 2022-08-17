@@ -1,0 +1,647 @@
+{
+	"info": {
+		"_postman_id": "63833576-b450-4cef-8eb4-b07f1451a99e",
+		"name": "Organization",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "137851"
+	},
+	"item": [
+		{
+			"name": "Acquire Token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"pm.environment.set(\"org-token\", jsonData.access_token);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "client_id",
+							"value": "ea-org-client",
+							"type": "text"
+						},
+						{
+							"key": "client_secret",
+							"value": "{{org-secret}}",
+							"type": "text"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "text"
+						},
+						{
+							"key": "grant_type",
+							"value": "password",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{keycloak}}/auth/realms/ea-realm/protocol/openid-connect/token",
+					"host": [
+						"{{keycloak}}"
+					],
+					"path": [
+						"auth",
+						"realms",
+						"ea-realm",
+						"protocol",
+						"openid-connect",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Asset Templates [list]",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{organization-api}}/asset-templates?page=0&size=25",
+					"host": [
+						"{{organization-api}}"
+					],
+					"path": [
+						"asset-templates"
+					],
+					"query": [
+						{
+							"key": "published",
+							"value": "false",
+							"disabled": true
+						},
+						{
+							"key": "tagId",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "tagIsNull",
+							"value": "false",
+							"disabled": true
+						},
+						{
+							"key": "tagName",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "page",
+							"value": "0"
+						},
+						{
+							"key": "size",
+							"value": "25"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Asset Templates [clone]",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"testCompanyTemplateCloned12Aug2022\",\n  \"generalDescription\": \"Cloned test asset template\",\n  \"authority\": \"COMPANY\",\n  \"tagReferences\": [\n    {\n      \"tagId\": \"de5212b1-0df7-4ea6-b9df-dba2c48256c6\"\n    }\n  ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{organization-api}}/asset-templates/0de67c1d-25b1-416e-955a-24cd507a9502/clone",
+					"host": [
+						"{{organization-api}}"
+					],
+					"path": [
+						"asset-templates",
+						"0de67c1d-25b1-416e-955a-24cd507a9502",
+						"clone"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Asset Templates [publish]",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{organization-api}}/asset-templates/9e923f4b-b75b-42bd-863f-d34e1733a1eb/publish",
+					"host": [
+						"{{organization-api}}"
+					],
+					"path": [
+						"asset-templates",
+						"9e923f4b-b75b-42bd-863f-d34e1733a1eb",
+						"publish"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Tags [list]",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{organization-api}}/tags",
+					"host": [
+						"{{organization-api}}"
+					],
+					"path": [
+						"tags"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Tags [get]",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{organization-api}}/tags/5dcf0fed-c33d-42ad-bde6-9f1ebb8d7b9d",
+					"host": [
+						"{{organization-api}}"
+					],
+					"path": [
+						"tags",
+						"5dcf0fed-c33d-42ad-bde6-9f1ebb8d7b9d"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Assets [list]",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{organization-api}}/assets?page=0&size=25",
+					"host": [
+						"{{organization-api}}"
+					],
+					"path": [
+						"assets"
+					],
+					"query": [
+						{
+							"key": "published",
+							"value": "false",
+							"disabled": true
+						},
+						{
+							"key": "tagId",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "tagIsNull",
+							"value": "false",
+							"disabled": true
+						},
+						{
+							"key": "tagName",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "page",
+							"value": "0"
+						},
+						{
+							"key": "size",
+							"value": "25"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Assets [create]",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"testAsset12Aug2022\",\n  \"logo\": null,\n  \"assetTemplateId\": \"9e923f4b-b75b-42bd-863f-d34e1733a1eb\",\n  \"assetTemplateActualizeType\": \"MANUAL\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{organization-api}}/assets",
+					"host": [
+						"{{organization-api}}"
+					],
+					"path": [
+						"assets"
+					],
+					"query": [
+						{
+							"key": "published",
+							"value": "false",
+							"disabled": true
+						},
+						{
+							"key": "tagId",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "tagIsNull",
+							"value": "false",
+							"disabled": true
+						},
+						{
+							"key": "tagName",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Assets [get]",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{organization-api}}/assets/004f7cf9-f3e9-4395-b287-2a7b1975bff6",
+					"host": [
+						"{{organization-api}}"
+					],
+					"path": [
+						"assets",
+						"004f7cf9-f3e9-4395-b287-2a7b1975bff6"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Assets [update]",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"type\": \"ASSET\",\n    \"id\": \"004f7cf9-f3e9-4395-b287-2a7b1975bff6\",\n    \"name\": \"testAsset12Aug2022\",\n    \"creationDate\": \"2022-08-12T10:34:44.130Z\",\n    \"logo\": null,\n    \"uploaderName\": \"alex_lz\",\n    \"extendedAssets\": [],\n    \"attachment\": null,\n    \"tabs\": [\n        {\n            \"type\": \"REGULATORY_INFORMATION\",\n            \"categories\": [\n                {\n                    \"uid\": \"763fe21d-7233-43a4-9cb2-4777b45cf9f5\",\n                    \"name\": \"category0\",\n                    \"order\": 0,\n                    \"attributes\": [\n                        {\n                            \"type\": \"TEXT\",\n                            \"uid\": \"815da710-fd25-48be-811b-52ffe239a4e1\",\n                            \"order\": 0,\n                            \"assetAttributeTemplateUID\": \"74f8d26a-e157-4e8a-9da2-7f1a045f2744\",\n                            \"name\": \"category0_attribute0\",\n                            \"type\": \"TEXT\",\n                            \"value\": \"testValue\",\n                            \"options\": {\n                                \"mandatory\": false,\n                                \"deprecated\": false,\n                                \"static\": false,\n                                \"public\": true\n                            }\n                        }\n                    ]\n                }\n            ]\n        }\n    ],\n    \"type\": \"ASSET\",\n    \"assetTemplateVersion\": 1,\n    \"assetTemplateLatest\": true,\n    \"published\": false,\n    \"assetTemplateActualizeType\": \"MANUAL\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{organization-api}}/assets/004f7cf9-f3e9-4395-b287-2a7b1975bff6",
+					"host": [
+						"{{organization-api}}"
+					],
+					"path": [
+						"assets",
+						"004f7cf9-f3e9-4395-b287-2a7b1975bff6"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Assets [publish]",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{organization-api}}/assets/004f7cf9-f3e9-4395-b287-2a7b1975bff6/publish",
+					"host": [
+						"{{organization-api}}"
+					],
+					"path": [
+						"assets",
+						"004f7cf9-f3e9-4395-b287-2a7b1975bff6",
+						"publish"
+					],
+					"query": [
+						{
+							"key": "published",
+							"value": "false",
+							"disabled": true
+						},
+						{
+							"key": "tagId",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "tagIsNull",
+							"value": "false",
+							"disabled": true
+						},
+						{
+							"key": "tagName",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Assets [get public info]",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{organization-api}}/assets/b4648c68-b128-4c95-b2f2-74cc7a48dddb/public",
+					"host": [
+						"{{organization-api}}"
+					],
+					"path": [
+						"assets",
+						"b4648c68-b128-4c95-b2f2-74cc7a48dddb",
+						"public"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Assets [history]",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{organization-api}}/assets/004f7cf9-f3e9-4395-b287-2a7b1975bff6/history",
+					"host": [
+						"{{organization-api}}"
+					],
+					"path": [
+						"assets",
+						"004f7cf9-f3e9-4395-b287-2a7b1975bff6",
+						"history"
+					],
+					"query": [
+						{
+							"key": "published",
+							"value": "false",
+							"disabled": true
+						},
+						{
+							"key": "tagId",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "tagIsNull",
+							"value": "false",
+							"disabled": true
+						},
+						{
+							"key": "tagName",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Assets [generate QR]",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{organization-api}}/assets/004f7cf9-f3e9-4395-b287-2a7b1975bff6/codes/generateQrCode",
+					"host": [
+						"{{organization-api}}"
+					],
+					"path": [
+						"assets",
+						"004f7cf9-f3e9-4395-b287-2a7b1975bff6",
+						"codes",
+						"generateQrCode"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Assets [get association candidates]",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{organization-api}}/assets/004f7cf9-f3e9-4395-b287-2a7b1975bff6/associations/candidates",
+					"host": [
+						"{{organization-api}}"
+					],
+					"path": [
+						"assets",
+						"004f7cf9-f3e9-4395-b287-2a7b1975bff6",
+						"associations",
+						"candidates"
+					],
+					"query": [
+						{
+							"key": "published",
+							"value": "false",
+							"disabled": true
+						},
+						{
+							"key": "tagId",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "tagIsNull",
+							"value": "false",
+							"disabled": true
+						},
+						{
+							"key": "tagName",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Assets [associate]",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"associativeAssetId\": \"73f8429c-c78b-4c90-bc8e-85e5fa290e60\",\n  \"location\": {\n    \"latitude\": 0,\n    \"longitude\": 0\n  }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{organization-api}}/assets/004f7cf9-f3e9-4395-b287-2a7b1975bff6/associations",
+					"host": [
+						"{{organization-api}}"
+					],
+					"path": [
+						"assets",
+						"004f7cf9-f3e9-4395-b287-2a7b1975bff6",
+						"associations"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Assets [get associations]",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{organization-api}}/assets/73f8429c-c78b-4c90-bc8e-85e5fa290e60/associations",
+					"host": [
+						"{{organization-api}}"
+					],
+					"path": [
+						"assets",
+						"73f8429c-c78b-4c90-bc8e-85e5fa290e60",
+						"associations"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Assets [get association history]",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{organization-api}}/assets/004f7cf9-f3e9-4395-b287-2a7b1975bff6/associations/history",
+					"host": [
+						"{{organization-api}}"
+					],
+					"path": [
+						"assets",
+						"004f7cf9-f3e9-4395-b287-2a7b1975bff6",
+						"associations",
+						"history"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Assets [get association]",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{organization-api}}/assets/004f7cf9-f3e9-4395-b287-2a7b1975bff6/associations/73f8429c-c78b-4c90-bc8e-85e5fa290e60",
+					"host": [
+						"{{organization-api}}"
+					],
+					"path": [
+						"assets",
+						"004f7cf9-f3e9-4395-b287-2a7b1975bff6",
+						"associations",
+						"73f8429c-c78b-4c90-bc8e-85e5fa290e60"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Asset Attributes [history]",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{organization-api}}/assets/004f7cf9-f3e9-4395-b287-2a7b1975bff6/attributes/815da710-fd25-48be-811b-52ffe239a4e1/history",
+					"host": [
+						"{{organization-api}}"
+					],
+					"path": [
+						"assets",
+						"004f7cf9-f3e9-4395-b287-2a7b1975bff6",
+						"attributes",
+						"815da710-fd25-48be-811b-52ffe239a4e1",
+						"history"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{org-token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
