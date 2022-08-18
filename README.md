@@ -27,8 +27,9 @@ Now you can send any requests from the collection and check its results.
 ### Swagger Docs
 
 Development environment:   
-[Platform Swagger Dev](https://platform-swagger.dev.everyasset.net)  
-[Organization Swagger Dev](https://organization-swagger.dev.everyasset.net)  
+- [Platform Swagger Dev](https://platform-swagger.dev.everyasset.net)  
+- [Organization Swagger Dev](https://organization-swagger.dev.everyasset.net)  
+
 Production environment:  
-[Platform Swagger](https://platform-swagger.everyasset.net)  
-[Organization Swagger](https://organization-swagger.everyasset.net) 
+- [Platform Swagger](https://platform-swagger.everyasset.net)  
+- [Organization Swagger](https://organization-swagger.everyasset.net) 
